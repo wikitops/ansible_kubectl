@@ -1,0 +1,48 @@
+---
+
+- name: KUBECTL | Manage Debian environment
+  import_tasks: debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: KUBECTL | Manage RedHat environment
+  import_tasks: redhat.yml
+  when: ansible_os_family == 'RedHat'
+
+- name: KUBECTL | Installation
+  package:
+    name: kubectl
+    state: present
+
+- name: KUBECTL | Create user directory
+  file:
+    state: directory
+    path: "/home/{{ kubectl_user }}/.kube"
+    owner: "{{ kubectl_user }}"
+    group: "{{ kubectl_group }}"
+    mode: 0755
+
+- name: KUBECTL | Copy Kubernetes conf file
+  copy:
+    src: home/user/kube/config
+    dest: /home/{{ kubectl_user }}/.kube/config
+    owner: "{{ kubectl_user }}"
+    group: "{{ kubectl_group }}"
+    mode: 0600
+  when: kubectl_configure
+
+- name: KUBECTL | Generate kubectl completion script
+  shell: kubectl completion bash > /home/{{ kubectl_user }}/.kube/completion.sh
+  args:
+    creates: /home/{{ kubectl_user }}/.kube/completion.sh
+
+- name: KUBECTL | Manage access to script
+  file:
+    path: /home/{{ kubectl_user }}/.kube/completion.sh
+    owner: "{{ kubectl_user }}"
+    group: "{{ kubectl_group}}"
+
+- name: KUBECTL | Source kubectl completion script
+  lineinfile:
+    path: /home/{{ kubectl_user }}/.bashrc
+    line: source ~/.kube/completion.sh
+    state: present

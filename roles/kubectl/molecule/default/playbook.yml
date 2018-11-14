@@ -1,0 +1,24 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+    - name: KUBECTL | Create group
+      group:
+        name: molecule
+        state: present
+    - name: KUBECTL | Create user
+      user:
+        name: molecule
+        group: molecule
+        shell: /bin/bash
+        create_home: true
+
+- hosts: all
+  become: true
+  vars:
+    kubernetes_kubectl_configure: true
+    kubectl_user: molecule
+    kubectl_group: molecule
+  roles:
+    - role: kubectl

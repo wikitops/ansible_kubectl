@@ -1,0 +1,30 @@
+---
+
+###
+# KUBERNETES KUBECTL
+###
+
+# Version
+kubectl_version: v1.12.2
+
+# Debian
+kubectl_apt_repository_key: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+kubectl_apt_repository_url: "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+
+# RedHat
+kubectl_yum_repository:
+  enabled: true
+  gpgcheck: true
+  gpgkey: https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+  name: kubernetes
+  reposdir: /etc/yum.repos.d
+  state: present
+  url: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+
+# User
+kubectl_user: "{{ ansible_user }}"
+kubectl_group: "{{ ansible_user }}"
+
+# Configuration
+# Need to configure the file files/home/user/kube/config
+kubectl_configure: false

@@ -1,0 +1,17 @@
+---
+
+- name: KUBECTL REDHAT | Add gpg key
+  rpm_key:
+    key: "{{ kubectl_yum_repository.gpgkey }}"
+    state: present
+
+- name: KUBECTL REDHAT | Add Repository
+  yum_repository:
+    baseurl: "{{ kubectl_yum_repository.url }}"
+    description: Kubernetes YUM repository
+    enabled: "{{ kubectl_yum_repository.enabled }}"
+    gpgcheck: "{{ kubectl_yum_repository.gpgcheck }}"
+    gpgkey: "{{ kubectl_yum_repository.gpgkey }}"
+    name: "{{ kubectl_yum_repository.name }}"
+    state: "{{ kubectl_yum_repository.state }}"
+    reposdir: "{{ kubectl_yum_repository.reposdir }}"

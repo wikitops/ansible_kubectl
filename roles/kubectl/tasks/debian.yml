@@ -1,0 +1,17 @@
+---
+
+- name: KUBECTL DEBIAN | Install prerequisites
+  package:
+    name: apt-transport-https
+    state: present
+
+- name: KUBECTL DEBIAN | Add repository key
+  apt_key:
+    url: "{{ kubectl_apt_repository_key }}"
+    state: present
+
+- name: KUBECTL DEBIAN | Add repository
+  apt_repository:
+    repo: "{{ kubectl_apt_repository_url }}"
+    update_cache: true
+    state: present
