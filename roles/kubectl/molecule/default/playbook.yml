@@ -13,11 +13,12 @@
         group: molecule
         shell: /bin/bash
         create_home: true
+        system: true
 
 - hosts: all
   become: true
   vars:
-    kubernetes_kubectl_configure: true
+    kubectl_configure: true
     kubectl_user: molecule
     kubectl_group: molecule
   roles:

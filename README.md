@@ -45,6 +45,11 @@ kubectl01                   running (virtualbox)
 
 If everything run as expected, you be able to use kubectl command on the Vagrant instance.
 
+```bash
+$ kubectl version
+Client Version: version.Info{Major:"1", Minor:"12", GitVersion:"v1.12.2", GitCommit:"17c77c7898218073f14c8d573582e8d2313dc740", GitTreeState:"clean", BuildDate:"2018-10-24T06:54:59Z", GoVersion:"go1.10.4", Compiler:"gc", Platform:"linux/amd64"}
+```
+
 #### Destroy
 
 To destroy the Vagrant resources created, just run this command :
